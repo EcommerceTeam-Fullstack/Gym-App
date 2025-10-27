@@ -59,5 +59,3 @@ export default defineSchema({
     .index("by_availability", ["available"])
     .index("by_price", ["price"]),
 });
-
-
