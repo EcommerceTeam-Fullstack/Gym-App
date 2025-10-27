@@ -40,4 +40,24 @@ export default defineSchema({
 
     createdAt: v.string(),
   }).index("by_userId", ["userId"]),
+  Inventory: defineTable({
+    name: v.string(),
+    category: v.union(
+      v.literal("Supplements"),
+      v.literal("Sportswear"),
+      v.literal("Sports Equipment")
+    ),
+    stock: v.number(),
+    price: v.number(),
+    description: v.optional(v.string()),
+    images: v.array(v.string()),
+    available: v.boolean(),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_category", ["category"])
+    .index("by_availability", ["available"])
+    .index("by_price", ["price"]),
 });
+
+
