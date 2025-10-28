@@ -15,7 +15,7 @@ export default defineSchema({
   })
     .index("by_email", ["email"])
     .index("by_role", ["role"]),
-
+    // TRAINERS //
   trainers: defineTable({
     userId: v.id("users"),
     specialization: v.optional(v.string()),
@@ -40,6 +40,7 @@ export default defineSchema({
 
     createdAt: v.string(),
   }).index("by_userId", ["userId"]),
+  // INVENTORY //
   Inventory: defineTable({
     name: v.string(),
     category: v.union(
@@ -58,6 +59,33 @@ export default defineSchema({
     .index("by_category", ["category"])
     .index("by_availability", ["available"])
     .index("by_price", ["price"]),
-});
+ // NUTRATION PALN // 
+NutritionPlan: defineTable({
+  memberId: v.id("members"),
+  trainerId: v.id("trainers"),
+  title: v.optional(v.string()),
+  meals: v.array(v.object({
+    name: v.string(),
+    time: v.string(),
+    quantity: v.string(),
+    calories: v.string(),
+  })),
+  totalCalories: v.number(),
+  macros: v.object({
+    protein: v.number(),
+    carbs: v.number(),
+    fat: v.number(),
+  }),
+  durationDays: v.optional(v.number()),
+  notes: v.optional(v.string()),
+  isActive: v.boolean(),
+  createdAt: v.string(),
+  updatedAt: v.optional(v.string()),
+})
+.index("by_member", ["memberId"])
+.index("by_trainer", ["trainerId"])
+.index("by_member_trainer", ["memberId", "trainerId"])
+
+})
 
 
