@@ -1,15 +1,17 @@
+"use node";
+
 import { v } from "convex/values";
-import { query } from "../_generated/server";
-import bcrypt from "bcryptjs";
+import { action } from "../../_generated/server";
 
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
-export const login = query({
+export const login = action({
   args: { email: v.string(), password: v.string() },
   handler: async (ctx, args) => {
-    const user = await ctx.db
+    const user = await (ctx as any).db
       .query("users")
-      .withIndex("by_email", (q) => q.eq("email", args.email))
+      .withIndex("by_email", (q: any) => q.eq("email", args.email))
       .unique();
 
     if (!user) throw new Error("Invalid email or password");
@@ -17,7 +19,6 @@ export const login = query({
     const passwordIsMatch = await bcrypt.compare(args.password, user.password);
     if (!passwordIsMatch) throw new Error("Invalid email or password");
 
-    // Generate token
     const token = jwt.sign(
       {
         id: user._id,

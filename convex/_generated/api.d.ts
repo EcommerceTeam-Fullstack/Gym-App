@@ -8,9 +8,22 @@
  * @module
  */
 
-import type * as changePassword from "../changePassword.js";
-import type * as login from "../users/login.js";
-import type * as users from "../users/users.js";
+import type * as Inventory_CreatetInventory from "../Inventory/CreatetInventory.js";
+import type * as Inventory_DeleteInventory from "../Inventory/DeleteInventory.js";
+import type * as Inventory_FiltrationInventory from "../Inventory/FiltrationInventory.js";
+import type * as Inventory_UpateInventory from "../Inventory/UpateInventory.js";
+import type * as actions_users_login from "../actions/users/login.js";
+import type * as admin_deleteTrainer from "../admin/deleteTrainer.js";
+import type * as admin_promoteToTrainer from "../admin/promoteToTrainer.js";
+import type * as trainer_getMyProfile from "../trainer/getMyProfile.js";
+import type * as users_changePassword from "../users/changePassword.js";
+import type * as users_createUser from "../users/createUser.js";
+import type * as users_deleteUser from "../users/deleteUser.js";
+import type * as users_getAllUsers from "../users/getAllUsers.js";
+import type * as users_getUserById from "../users/getUserById.js";
+import type * as users_register from "../users/register.js";
+import type * as users_searchUsers from "../users/searchUsers.js";
+import type * as users_updateUser from "../users/updateUser.js";
 
 import type {
   ApiFromModules,
@@ -27,9 +40,22 @@ import type {
  * ```
  */
 declare const fullApi: ApiFromModules<{
-  changePassword: typeof changePassword;
-  login: typeof login;
-  users: typeof users;
+  "Inventory/CreatetInventory": typeof Inventory_CreatetInventory;
+  "Inventory/DeleteInventory": typeof Inventory_DeleteInventory;
+  "Inventory/FiltrationInventory": typeof Inventory_FiltrationInventory;
+  "Inventory/UpateInventory": typeof Inventory_UpateInventory;
+  "actions/users/login": typeof actions_users_login;
+  "admin/deleteTrainer": typeof admin_deleteTrainer;
+  "admin/promoteToTrainer": typeof admin_promoteToTrainer;
+  "trainer/getMyProfile": typeof trainer_getMyProfile;
+  "users/changePassword": typeof users_changePassword;
+  "users/createUser": typeof users_createUser;
+  "users/deleteUser": typeof users_deleteUser;
+  "users/getAllUsers": typeof users_getAllUsers;
+  "users/getUserById": typeof users_getUserById;
+  "users/register": typeof users_register;
+  "users/searchUsers": typeof users_searchUsers;
+  "users/updateUser": typeof users_updateUser;
 }>;
 declare const fullApiWithMounts: typeof fullApi;
 

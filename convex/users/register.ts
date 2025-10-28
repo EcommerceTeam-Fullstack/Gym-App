@@ -7,7 +7,7 @@ export const register = mutation({
     name: v.string(),
     email: v.string(),
     password: v.string(),
-    role: v.optional(v.string()),
+
     phone: v.optional(v.string()),
     gender: v.optional(v.string()),
     dateOfBirth: v.optional(v.string()),
@@ -30,7 +30,7 @@ export const register = mutation({
       name: args.name,
       email: args.email,
       password: hashedPassword,
-      role: args.role ?? "member",
+      role: "member",
       phone: args.phone ?? "",
       gender: args.gender ?? "",
       dateOfBirth: args.dateOfBirth ?? "",
@@ -43,7 +43,7 @@ export const register = mutation({
       _id: newUserId,
       name: args.name,
       email: args.email,
-      role: args.role ?? "member",
+      role: "member",
     };
   },
 });
