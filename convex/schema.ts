@@ -58,4 +58,16 @@ export default defineSchema({
     .index("by_category", ["category"])
     .index("by_availability", ["available"])
     .index("by_price", ["price"]),
+
+  classes: defineTable({
+    name: v.string(),
+    trainerId: v.id("users"),
+    capacity: v.number(),
+    schedule: v.string(),
+    duration: v.number(),
+    price: v.optional(v.number()),
+    createdAt: v.number(),
+  })
+    .index("by_trainer", ["trainerId"])
+    .index("by_name", ["name"]),
 });
