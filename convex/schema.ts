@@ -84,8 +84,71 @@ NutritionPlan: defineTable({
 })
 .index("by_member", ["memberId"])
 .index("by_trainer", ["trainerId"])
-.index("by_member_trainer", ["memberId", "trainerId"])
+.index("by_member_trainer", ["memberId", "trainerId"]),
+// WorkOutPlan//
+//  جدول أنظمة التدريب (Workout Splits)
+workoutSplits: defineTable({
+  name: v.string(), // Push Pull Legs, Bro Split, Arnold Split, Full Body ...
+  description: v.optional(v.string()),
+  createdAt: v.number(),
+  updatedAt: v.optional(v.number()),
+}),
+
+//  جدول تصنيفات التمارين (Chest, Back, Legs, etc.)
+exerciseCategories: defineTable({
+  name: v.string(), // Chest, Back, Shoulders, Arms, Legs ...
+  description: v.optional(v.string()),
+  createdAt: v.number(),
+  updatedAt: v.optional(v.number()),
+}),
+
+//  جدول التمارين الأساسية
+exercises: defineTable({
+  name: v.string(), // اسم التمرين (Bench Press, Squat ...)
+  description: v.optional(v.string()), // وصف أو شرح للتمرين
+  categoryId: v.id("exerciseCategories"), // التصنيف العضلي (صدر - ظهر - رجل ...)
+  splitType: v.union(
+    v.literal("Push"),
+    v.literal("Pull"),
+    v.literal("Legs"),
+    v.literal("Full Body"),
+    v.literal("Arnold Split"),
+    v.literal("Bro Split")
+  ), // نوع النظام التدريبي اللي التمرين بينتمي له
+  imageUrl: v.optional(v.string()), // صورة للتمرين
+  videoUrl: v.optional(v.string()), // فيديو توضيحي
+  equipment: v.optional(v.string()), // Dumbbell / Barbell / Machine / Bodyweight
+  difficulty: v.optional(v.string()), // Beginner / Intermediate / Advanced
+  createdAt: v.number(),
+  updatedAt: v.optional(v.number()),
+}),
+
+// 🏋️‍♂️ جدول الخطط التدريبية
+workoutPlans: defineTable({
+  memberId: v.id("users"), // العضو اللي الخطة تخصه
+  trainerId: v.id("users"), // المدرب اللي أنشأ الخطة
+  name: v.string(), // اسم الخطة (مثلاً "6 Weeks Push Pull Legs")
+  description: v.optional(v.string()), // وصف مختصر
+  goal: v.optional(v.string()), // الهدف (Bulking, Cutting, Strength...)
+  durationWeeks: v.optional(v.number()), // المدة بالأسبوع
+  splitId: v.id("workoutSplits"), // النظام التدريبي (PPL, Arnold Split, ...)
+  createdAt: v.number(),
+  updatedAt: v.optional(v.number()),
+}),
+
+// 💪 جدول التمارين داخل كل خطة تدريب
+workoutExercises: defineTable({
+  planId: v.id("workoutPlans"), // رقم الخطة
+  exerciseId: v.id("exercises"), // رقم التمرين
+  sets: v.number(), // عدد المجاميع
+  reps: v.number(), // عدد العدّات
+  restTime: v.number(), // وقت الراحة بالثواني
+  day: v.string(), // اليوم (Monday / Day 1 / Upper ...)
+  splitType: v.optional(v.string()), // نوع الـ Split داخل الخطة (Push / Pull / Legs ...)
+  createdAt: v.number(),
+  updatedAt: v.optional(v.number()),
+}),
+
 
 })
-
 
