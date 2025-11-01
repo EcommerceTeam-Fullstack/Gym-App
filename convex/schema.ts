@@ -58,4 +58,14 @@ export default defineSchema({
     .index("by_category", ["category"])
     .index("by_availability", ["available"])
     .index("by_price", ["price"]),
+
+  classBookings: defineTable({
+    classId: v.id("classes"),
+    memberId: v.id("users"),
+    bookingDate: v.number(), 
+    status: v.union(v.literal("confirmed"), v.literal("canceled")),
+    attended: v.optional(v.boolean()), 
+  })
+    .index("by_member", ["memberId"])
+    .index("by_class", ["classId"]),
 });
