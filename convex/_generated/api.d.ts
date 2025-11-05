@@ -12,6 +12,11 @@ import type * as Inventory_CreatetInventory from "../Inventory/CreatetInventory.
 import type * as Inventory_DeleteInventory from "../Inventory/DeleteInventory.js";
 import type * as Inventory_FiltrationInventory from "../Inventory/FiltrationInventory.js";
 import type * as Inventory_UpateInventory from "../Inventory/UpateInventory.js";
+import type * as MemberShips_createMembership from "../MemberShips/createMembership.js";
+import type * as MemberShips_deleteMembership from "../MemberShips/deleteMembership.js";
+import type * as MemberShips_getAllMemberships from "../MemberShips/getAllMemberships.js";
+import type * as MemberShips_getMembershipById from "../MemberShips/getMembershipById.js";
+import type * as MemberShips_updateMembership from "../MemberShips/updateMembership.js";
 import type * as NutrationPlan_DeleteNutration from "../NutrationPlan/DeleteNutration.js";
 import type * as NutrationPlan_FunctionTotalCalories from "../NutrationPlan/FunctionTotalCalories.js";
 import type * as NutrationPlan_TotalCalories from "../NutrationPlan/TotalCalories.js";
@@ -60,6 +65,11 @@ declare const fullApi: ApiFromModules<{
   "Inventory/DeleteInventory": typeof Inventory_DeleteInventory;
   "Inventory/FiltrationInventory": typeof Inventory_FiltrationInventory;
   "Inventory/UpateInventory": typeof Inventory_UpateInventory;
+  "MemberShips/createMembership": typeof MemberShips_createMembership;
+  "MemberShips/deleteMembership": typeof MemberShips_deleteMembership;
+  "MemberShips/getAllMemberships": typeof MemberShips_getAllMemberships;
+  "MemberShips/getMembershipById": typeof MemberShips_getMembershipById;
+  "MemberShips/updateMembership": typeof MemberShips_updateMembership;
   "NutrationPlan/DeleteNutration": typeof NutrationPlan_DeleteNutration;
   "NutrationPlan/FunctionTotalCalories": typeof NutrationPlan_FunctionTotalCalories;
   "NutrationPlan/TotalCalories": typeof NutrationPlan_TotalCalories;
