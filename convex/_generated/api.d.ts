@@ -12,6 +12,10 @@ import type * as Inventory_CreatetInventory from "../Inventory/CreatetInventory.
 import type * as Inventory_DeleteInventory from "../Inventory/DeleteInventory.js";
 import type * as Inventory_FiltrationInventory from "../Inventory/FiltrationInventory.js";
 import type * as Inventory_UpateInventory from "../Inventory/UpateInventory.js";
+import type * as NutrationPlan_DeleteNutration from "../NutrationPlan/DeleteNutration.js";
+import type * as NutrationPlan_FunctionTotalCalories from "../NutrationPlan/FunctionTotalCalories.js";
+import type * as NutrationPlan_TotalCalories from "../NutrationPlan/TotalCalories.js";
+import type * as NutrationPlan_UpdataNutration from "../NutrationPlan/UpdataNutration.js";
 import type * as actions_users_login from "../actions/users/login.js";
 import type * as admin_deleteTrainer from "../admin/deleteTrainer.js";
 import type * as admin_promoteToTrainer from "../admin/promoteToTrainer.js";
@@ -56,6 +60,10 @@ declare const fullApi: ApiFromModules<{
   "Inventory/DeleteInventory": typeof Inventory_DeleteInventory;
   "Inventory/FiltrationInventory": typeof Inventory_FiltrationInventory;
   "Inventory/UpateInventory": typeof Inventory_UpateInventory;
+  "NutrationPlan/DeleteNutration": typeof NutrationPlan_DeleteNutration;
+  "NutrationPlan/FunctionTotalCalories": typeof NutrationPlan_FunctionTotalCalories;
+  "NutrationPlan/TotalCalories": typeof NutrationPlan_TotalCalories;
+  "NutrationPlan/UpdataNutration": typeof NutrationPlan_UpdataNutration;
   "actions/users/login": typeof actions_users_login;
   "admin/deleteTrainer": typeof admin_deleteTrainer;
   "admin/promoteToTrainer": typeof admin_promoteToTrainer;
