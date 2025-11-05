@@ -22,6 +22,11 @@ import type * as classBookings_getBookingsByMember from "../classBookings/getBoo
 import type * as classBookings_getRemainingSeats from "../classBookings/getRemainingSeats.js";
 import type * as classBookings_markAttendance from "../classBookings/markAttendance.js";
 import type * as classBookings_updateBookingStatus from "../classBookings/updateBookingStatus.js";
+import type * as classes_createClass from "../classes/createClass.js";
+import type * as classes_deleteClass from "../classes/deleteClass.js";
+import type * as classes_getAllClasses from "../classes/getAllClasses.js";
+import type * as classes_getClassesByTrainer from "../classes/getClassesByTrainer.js";
+import type * as classes_updateClass from "../classes/updateClass.js";
 import type * as trainer_getMyProfile from "../trainer/getMyProfile.js";
 import type * as users_changePassword from "../users/changePassword.js";
 import type * as users_createUser from "../users/createUser.js";
@@ -61,6 +66,11 @@ declare const fullApi: ApiFromModules<{
   "classBookings/getRemainingSeats": typeof classBookings_getRemainingSeats;
   "classBookings/markAttendance": typeof classBookings_markAttendance;
   "classBookings/updateBookingStatus": typeof classBookings_updateBookingStatus;
+  "classes/createClass": typeof classes_createClass;
+  "classes/deleteClass": typeof classes_deleteClass;
+  "classes/getAllClasses": typeof classes_getAllClasses;
+  "classes/getClassesByTrainer": typeof classes_getClassesByTrainer;
+  "classes/updateClass": typeof classes_updateClass;
   "trainer/getMyProfile": typeof trainer_getMyProfile;
   "users/changePassword": typeof users_changePassword;
   "users/createUser": typeof users_createUser;
