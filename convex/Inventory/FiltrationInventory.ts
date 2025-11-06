@@ -1,34 +1,44 @@
 import { v } from "convex/values";
 import { query } from "../_generated/server";
 
-export const FilterInventory = query({
-  args: {
-    category: v.optional(
-      v.union(
-        v.literal("Supplements"),
-        v.literal("Sportswear"),
-        v.literal("Sports Equipment")
-      )
-    ),
-    minPrice: v.optional(v.number()),
-    maxPrice: v.optional(v.number()),
-  },
+export const FilterWorkoutPlans = query({
+args: {
+splitType: v.optional(
+v.union(
+v.literal("Push"),
+v.literal("Pull"),
+v.literal("Legs"),
+v.literal("Full Body"),
+v.literal("Arnold Split"),
+v.literal("Bro Split")
+)
+),
+trainerId: v.optional(v.string()),
+memberId: v.optional(v.string()),
+},
 
-  handler: async (ctx, args) => {
-    let products = ctx.db.query("Inventory");
+handler: async (ctx, args) => {
+let plans = await ctx.db.query("workoutPlans").collect();
 
-if(args.category){
-    products=products.filter((q)=>q.eq(q.field("category"),args.category))
+
+const allExercises = await ctx.db.query("workoutExercises").collect();  
+
+if (args.splitType) {  
+  plans = plans.filter(plan =>  
+    allExercises.some(e => e.planId === plan._id && e.splitType === args.splitType)  
+  );  
+}  
+
+if (args.trainerId) {  
+  plans = plans.filter(plan => plan.trainerId === args.trainerId);  
+}  
+
+if (args.memberId) {  
+  plans = plans.filter(plan => plan.memberId === args.memberId);  
+}  
+
+return plans
+
+
 }
-
-if(args.maxPrice !==undefined){
-  products=products.filter((q)=>q.eq(q.field("price"),args.maxPrice))
-}
-if(args.minPrice !==undefined){
-    products=products.filter((q)=>q.eq(q.field("price"),args.minPrice))
-}
-
-   const result = await products.collect()
-   return result
-  },
 })

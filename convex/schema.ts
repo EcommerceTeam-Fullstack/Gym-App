@@ -59,6 +59,73 @@ export default defineSchema({
     .index("by_category", ["category"])
     .index("by_availability", ["available"])
     .index("by_price", ["price"]),
+ 
+// WorkOutPlan//
+//  جدول أنظمة التدريب (Workout Splits)
+workoutSplits: defineTable({
+  name: v.string(), 
+  description: v.optional(v.string()),
+  createdAt: v.number(),
+  updatedAt: v.optional(v.number()),
+}),
+
+//  جدول تصنيفات التمارين (Chest, Back, Legs, etc.)
+exerciseCategories: defineTable({
+  name: v.string(), 
+  description: v.optional(v.string()),
+  createdAt: v.number(),
+  updatedAt: v.optional(v.number()),
+}),
+
+//  جدول التمارين الأساسية
+exercises: defineTable({
+  name: v.string(), 
+  description: v.optional(v.string()), 
+  categoryId: v.id("exerciseCategories"), 
+  splitType: v.union(
+    v.literal("Push"),
+    v.literal("Pull"),
+    v.literal("Legs"),
+    v.literal("Full Body"),
+    v.literal("Arnold Split"),
+    v.literal("Bro Split")
+  ), // نوع النظام التدريبي اللي التمرين بينتمي له
+  imageUrl: v.optional(v.string()), 
+  videoUrl: v.optional(v.string()),
+  equipment: v.optional(v.string()), 
+  difficulty: v.optional(v.string()), 
+  createdAt: v.number(),
+  updatedAt: v.optional(v.number()),
+}),
+
+// 🏋️‍♂️ جدول الخطط التدريبية
+workoutPlans: defineTable({
+  memberId: v.id("users"),
+  trainerId: v.id("users"),
+  name: v.string(), 
+  description: v.optional(v.string()), 
+  goal: v.optional(v.string()), 
+  durationWeeks: v.optional(v.number()), 
+  splitId: v.id("workoutSplits"), 
+  createdAt: v.number(),
+  updatedAt: v.optional(v.number()),
+}),
+
+// 💪 جدول التمارين داخل كل خطة تدريب
+workoutExercises: defineTable({
+  planId: v.id("workoutPlans"), 
+  exerciseId: v.id("exercises"),
+  sets: v.number(), 
+  reps: v.number(), 
+  restTime: v.number(), 
+  day: v.string(), 
+  splitType: v.optional(v.string()), 
+  createdAt: v.number(),
+  updatedAt: v.optional(v.number()),
+}),
+
+
+})
 
   classBookings: defineTable({
     classId: v.id("classes"),
