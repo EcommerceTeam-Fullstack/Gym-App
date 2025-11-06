@@ -15,7 +15,7 @@ export default defineSchema({
   })
     .index("by_email", ["email"])
     .index("by_role", ["role"]),
-    // TRAINERS //
+  // TRAINERS //
   trainers: defineTable({
     userId: v.id("users"),
     specialization: v.optional(v.string()),
@@ -59,36 +59,11 @@ export default defineSchema({
     .index("by_category", ["category"])
     .index("by_availability", ["available"])
     .index("by_price", ["price"]),
- // NUTRATION PALN // 
-NutritionPlan: defineTable({
-  memberId: v.id("members"),
-  trainerId: v.id("trainers"),
-  title: v.optional(v.string()),
-  meals: v.array(v.object({
-    name: v.string(),
-    time: v.string(),
-    quantity: v.string(),
-    calories: v.string(),
-  })),
-  totalCalories: v.number(),
-  macros: v.object({
-    protein: v.number(),
-    carbs: v.number(),
-    fat: v.number(),
-  }),
-  durationDays: v.optional(v.number()),
-  notes: v.optional(v.string()),
-  isActive: v.boolean(),
-  createdAt: v.string(),
-  updatedAt: v.optional(v.string()),
-})
-.index("by_member", ["memberId"])
-.index("by_trainer", ["trainerId"])
-.index("by_member_trainer", ["memberId", "trainerId"]),
+ 
 // WorkOutPlan//
 //  جدول أنظمة التدريب (Workout Splits)
 workoutSplits: defineTable({
-  name: v.string(), // Push Pull Legs, Bro Split, Arnold Split, Full Body ...
+  name: v.string(), 
   description: v.optional(v.string()),
   createdAt: v.number(),
   updatedAt: v.optional(v.number()),
@@ -96,7 +71,7 @@ workoutSplits: defineTable({
 
 //  جدول تصنيفات التمارين (Chest, Back, Legs, etc.)
 exerciseCategories: defineTable({
-  name: v.string(), // Chest, Back, Shoulders, Arms, Legs ...
+  name: v.string(), 
   description: v.optional(v.string()),
   createdAt: v.number(),
   updatedAt: v.optional(v.number()),
@@ -104,9 +79,9 @@ exerciseCategories: defineTable({
 
 //  جدول التمارين الأساسية
 exercises: defineTable({
-  name: v.string(), // اسم التمرين (Bench Press, Squat ...)
-  description: v.optional(v.string()), // وصف أو شرح للتمرين
-  categoryId: v.id("exerciseCategories"), // التصنيف العضلي (صدر - ظهر - رجل ...)
+  name: v.string(), 
+  description: v.optional(v.string()), 
+  categoryId: v.id("exerciseCategories"), 
   splitType: v.union(
     v.literal("Push"),
     v.literal("Pull"),
@@ -115,36 +90,36 @@ exercises: defineTable({
     v.literal("Arnold Split"),
     v.literal("Bro Split")
   ), // نوع النظام التدريبي اللي التمرين بينتمي له
-  imageUrl: v.optional(v.string()), // صورة للتمرين
-  videoUrl: v.optional(v.string()), // فيديو توضيحي
-  equipment: v.optional(v.string()), // Dumbbell / Barbell / Machine / Bodyweight
-  difficulty: v.optional(v.string()), // Beginner / Intermediate / Advanced
+  imageUrl: v.optional(v.string()), 
+  videoUrl: v.optional(v.string()),
+  equipment: v.optional(v.string()), 
+  difficulty: v.optional(v.string()), 
   createdAt: v.number(),
   updatedAt: v.optional(v.number()),
 }),
 
 // 🏋️‍♂️ جدول الخطط التدريبية
 workoutPlans: defineTable({
-  memberId: v.id("users"), // العضو اللي الخطة تخصه
-  trainerId: v.id("users"), // المدرب اللي أنشأ الخطة
-  name: v.string(), // اسم الخطة (مثلاً "6 Weeks Push Pull Legs")
-  description: v.optional(v.string()), // وصف مختصر
-  goal: v.optional(v.string()), // الهدف (Bulking, Cutting, Strength...)
-  durationWeeks: v.optional(v.number()), // المدة بالأسبوع
-  splitId: v.id("workoutSplits"), // النظام التدريبي (PPL, Arnold Split, ...)
+  memberId: v.id("users"),
+  trainerId: v.id("users"),
+  name: v.string(), 
+  description: v.optional(v.string()), 
+  goal: v.optional(v.string()), 
+  durationWeeks: v.optional(v.number()), 
+  splitId: v.id("workoutSplits"), 
   createdAt: v.number(),
   updatedAt: v.optional(v.number()),
 }),
 
 // 💪 جدول التمارين داخل كل خطة تدريب
 workoutExercises: defineTable({
-  planId: v.id("workoutPlans"), // رقم الخطة
-  exerciseId: v.id("exercises"), // رقم التمرين
-  sets: v.number(), // عدد المجاميع
-  reps: v.number(), // عدد العدّات
-  restTime: v.number(), // وقت الراحة بالثواني
-  day: v.string(), // اليوم (Monday / Day 1 / Upper ...)
-  splitType: v.optional(v.string()), // نوع الـ Split داخل الخطة (Push / Pull / Legs ...)
+  planId: v.id("workoutPlans"), 
+  exerciseId: v.id("exercises"),
+  sets: v.number(), 
+  reps: v.number(), 
+  restTime: v.number(), 
+  day: v.string(), 
+  splitType: v.optional(v.string()), 
   createdAt: v.number(),
   updatedAt: v.optional(v.number()),
 }),
@@ -152,3 +127,53 @@ workoutExercises: defineTable({
 
 })
 
+  classBookings: defineTable({
+    classId: v.id("classes"),
+    memberId: v.id("users"),
+    bookingDate: v.number(),
+    status: v.union(v.literal("confirmed"), v.literal("canceled")),
+    attended: v.optional(v.boolean()),
+  })
+    .index("by_member", ["memberId"])
+    .index("by_class", ["classId"]),
+  
+  classes: defineTable({
+    name: v.string(),
+    trainerId: v.id("users"),
+    capacity: v.number(),
+    schedule: v.string(),
+    duration: v.number(),
+    price: v.optional(v.number()),
+    createdAt: v.number(),
+  })
+    .index("by_trainer", ["trainerId"])
+    .index("by_name", ["name"]),
+  // NUTRATION PALN //
+  NutritionPlan: defineTable({
+    memberId: v.id("members"),
+    trainerId: v.id("trainers"),
+    title: v.optional(v.string()),
+    meals: v.array(
+      v.object({
+        name: v.string(),
+        time: v.string(),
+        quantity: v.string(),
+        calories: v.string(),
+      })
+    ),
+    totalCalories: v.number(),
+    macros: v.object({
+      protein: v.number(),
+      carbs: v.number(),
+      fat: v.number(),
+    }),
+    durationDays: v.optional(v.number()),
+    notes: v.optional(v.string()),
+    isActive: v.boolean(),
+    createdAt: v.string(),
+    updatedAt: v.optional(v.string()),
+  })
+    .index("by_member", ["memberId"])
+    .index("by_trainer", ["trainerId"])
+    .index("by_member_trainer", ["memberId", "trainerId"]),
+});
