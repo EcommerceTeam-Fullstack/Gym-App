@@ -148,7 +148,24 @@ workoutExercises: defineTable({
   createdAt: v.number(),
   updatedAt: v.optional(v.number()),
 }),
+equipments: defineTable({
+    active: v.boolean(), // هل الجهاز قيد الاستخدام أم تم تعطيله
+    name: v.string(), // اسم الجهاز
+    category: v.string(), // نوع الجهاز (كارديو - حديد - إلخ)
+    purchaseDate: v.string(), // تاريخ الشراء (ISO format)
+    lastMaintenanceDate: v.optional(v.string()), // آخر تاريخ صيانة
+    status: v.string(), // يعمل – يحتاج صيانة – خارج الخدمة
+    supplier: v.optional(v.string()), // اسم المورد (اختياري)
+    warrantyEndDate: v.optional(v.string()), // نهاية الضمان (اختياري)
+    notes: v.optional(v.string()), // ملاحظات إضافية (مثل ملاحظات الفني)
+    nextMaintenanceDate: v.optional(v.string()), // لتحديد الصيانة القادمة
+    createdAt: v.number(), // وقت الإنشاء (timestamp)
+    updatedAt: v.optional(v.number()) // آخر تحديث
+  })
+
 
 
 })
+
+
 
