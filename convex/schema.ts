@@ -171,4 +171,13 @@ export default defineSchema({
     .index("by_member", ["memberId"])
     .index("by_trainer", ["trainerId"])
     .index("by_member_trainer", ["memberId", "trainerId"]),
+
+  attendance: defineTable({
+    memberId: v.id("users"),
+    memberName: v.string(),
+    date: v.string(),
+    timeIn: v.optional(v.string()),
+    timeOut: v.optional(v.string()),
+    classId: v.optional(v.id("classes")),
+  }).index("by_memberId", ["memberId"]),
 });
