@@ -179,7 +179,19 @@ equipments: defineTable({
   .index("by_userId_isRead", ["userId", "isRead"])
   .index("by_createdAt", ["createdAt"]),
 
-
+ reviews: defineTable({
+    memberId: v.string(), // العضو اللي عمل الريفيو
+    targetType: v.union(
+      v.literal("trainer"), // تقييم مدرب
+      v.literal("class")    // تقييم كلاس
+    ),
+    targetId: v.string(), // رقم أو ID المدرب/الكلاس
+    rating: v.number(),   // من 1 إلى 5
+    comment: v.string(),  // تعليق العضو
+    createdAt: v.number(), // تاريخ إنشاء الريفيو (timestamp)
+  })
+  .index("by_target", ["targetType", "targetId"])
+  .index("by_member", ["memberId"]),
 })
 
 
