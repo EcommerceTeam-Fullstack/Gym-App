@@ -161,11 +161,25 @@ equipments: defineTable({
     nextMaintenanceDate: v.optional(v.string()), // لتحديد الصيانة القادمة
     createdAt: v.number(), // وقت الإنشاء (timestamp)
     updatedAt: v.optional(v.number()) // آخر تحديث
+  }),
+ notifications: defineTable({
+    userId: v.string(),         
+    title: v.string(),
+    message: v.string(),
+    type: v.union(
+      v.literal("subscription"),
+      v.literal("booking"),
+      v.literal("payment"),
+      v.literal("system")
+    ),
+    isRead: v.boolean(),
+    createdAt: v.number(),       
   })
-
+  .index("by_userId", ["userId"])
+  .index("by_userId_isRead", ["userId", "isRead"])
+  .index("by_createdAt", ["createdAt"]),
 
 
 })
-
 
 
