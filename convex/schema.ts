@@ -171,4 +171,17 @@ export default defineSchema({
     .index("by_member", ["memberId"])
     .index("by_trainer", ["trainerId"])
     .index("by_member_trainer", ["memberId", "trainerId"]),
+
+  memberships: defineTable({
+    name: v.string(),
+    durationInDays: v.number(),
+    price: v.number(),
+    accessLevel: v.string(),
+    description: v.optional(v.string()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_name", ["name"])
+    .index("by_price", ["price"])
+    .index("by_accessLevel", ["accessLevel"]),
 });
